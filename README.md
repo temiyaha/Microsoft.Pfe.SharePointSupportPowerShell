@@ -1,5 +1,5 @@
 # Microsoft.Pfe.CreateFields.PowerShell
-SharePoint ではアイテムの件数が多いリストでは、様々な閾値やビューの設定に依存し、意図した操作が行えないときがあります。
+SharePoint ではアイテムの件数が多いリストでは、閾値やビューの設定に依存し、意図した操作が行えないときがあります。
 そのような動作を検証する際に手動でテストデータの作成すると時間がかかるため、簡単にテストデータを作成するスクリプトをご紹介します。
 
 このスクリプトでは下記の操作を PowerShell スクリプトで実施します。
@@ -16,6 +16,7 @@ Add("<リストの名前>","<リストの説明>","<リストテンプレート�
 
 になります。
 
+Title : SPListCollection.Add method
 https://msdn.microsoft.com/en-us/library/office/microsoft.sharepoint.splistcollection.add.aspx
 
 なお各リストテンプレートの ID は下記のページで確認することができます。
@@ -29,19 +30,23 @@ $listCollection.Add("TestList","This is test List","100")
 ```
 
 ###Step2. 列の追加
-Step1 で作成したリストの列を追加していきます。
+Step1 で作成したリストに列を追加していきます。
 列の追加は List の SPFieldCollection に AddFieldAsXml メソッドを用います。
 
-https://msdn.microsoft.com/en-us/library/office/ms457586.aspx
+Title : SPFieldCollection.AddFieldAsXml method
+https://msdn.microsoft.com/en-us/library/office/microsoft.sharepoint.spfieldcollection.addfieldasxml.aspx
 
 一番シンプルな方法としては、引数に xml を渡します。
 
 AddFieldAsXml("<XMLの定義>")
 
-この XMLの定義が列の種類により、書き方が異なります。そのため、作成したい列に応じて、スクリプトを変更します。
+この XMLの定義が列の種類により、指定の仕方が異なります。
+そのため作成したい列に応じて、定義を指定します。
 
+Title : Field Element (List)
 https://msdn.microsoft.com/en-us/library/office/ms437580.aspx
 
+Title : FieldType enumeration
 https://msdn.microsoft.com/en-us/library/office/microsoft.sharepoint.client.fieldtype.aspx
 
 例えば一行テキストの場合には、下記のような XML を指定します。
