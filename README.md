@@ -11,5 +11,5 @@ Create columns to a list and add many items.
 
 **UplodaFiles**
 
-Upload many files to a document libary.
+Upload many files to a document library.
 
