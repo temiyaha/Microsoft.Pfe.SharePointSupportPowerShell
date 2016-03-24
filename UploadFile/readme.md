@@ -1,21 +1,27 @@
-Microsoft.Pfe.UploadFiles.PowerShell
+##UploadFiles.PowerShell
 
-SharePoint 環境で大量のファイルが保存されているドキュメント ライブラリの検証を行う際、大量のファイルを作成するには手間がかかります。
-そこで PowerShell を用いて、大量のファイルをアップロードしたいと思います。
+It takes time if you upload many files to a document libary manually. By using PowerShell, you can automate the task.
 
 ```PowerShell
-$FilePath="C:\test"
-$web = Get-SPWeb http://portal.contoso.local/sites/pstest/
-$list = $web.lists["共有ドキュメント"]
-$folder = $list.RootFolder
-$FileName = $FilePath.Substring($FilePath.LastIndexOf("\")+1)
-$File= Get-ChildItem $FilePath            
+# Specify folder path which contains files to upload.
+$FolderPath="C:\test"
 
-foreach($f in $File){
-$fileStream = ([System.IO.FileInfo] (Get-Item $f.FullName)).OpenRead()            
-[Microsoft.SharePoint.SPFile]$spFile = $folder.Files.Add($folder.Url + "/" + $f.Name, [System.IO.Stream]$fileStream, $true)            
-$fileStream.Close()     
-$spFile.Item["Title"] = "PowerShell Upload"            
-$spFile.Item.Update()
+# Specify document library name
+$documentLibaryName = "Documents"
+
+# Get a document libary.
+$web = Get-SPWeb http://portal.contoso.local/sites/pstest/
+$list = $web.lists[$documentLibaryName]
+$listRootFolder = $list.RootFolder
+
+$files = Get-ChildItem $FolderPath           
+
+foreach($file in $files){
+  #Upload file
+  $fileStream = ([System.IO.FileInfo] (Get-Item $file.FullName)).OpenRead()            
+  [Microsoft.SharePoint.SPFile]$spFile = $listRootFolder.Files.Add($listRootFolder.Url + "/" + $file.Name,   [System.IO.Stream]$fileStream, $true)            
+  $fileStream.Close()     
+  $spFile.Item["Title"] =  $file.Name.Replace($file.Extension,"")
+  $spFile.Item.Update()
 }
 ```
