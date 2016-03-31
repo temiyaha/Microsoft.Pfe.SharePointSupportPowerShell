@@ -13,3 +13,7 @@ Create columns to a list and add many items.
 
 Upload many files to a document library.
 
+**BreakInheritance**
+
+Stop Inheriting Permissions and set item level permission.
+
