@@ -1,25 +1,24 @@
 # CreateFields
-SharePoint ではアイテムの件数が多いリストでは、閾値やビューの設定に依存し、意図した操作が行えないときがあります。
-そのような動作を検証する際に手動でテストデータの作成すると時間がかかるため、簡単にテストデータを作成するスクリプトをご紹介します。
+It takes time if you create fileds and add many items to a custom list manually. By using PowerShell, you can automate the task.
 
-このスクリプトでは下記の操作を PowerShell スクリプトで実施します。
+This PowerShell script does below actions.
 
-- Step1.カスタムリストの作成
-- Step2.列の追加
-- Step3.アイテムの追加
+- Step1. Create a custom list
+- Step2. Add a culumn
+- Step3. Add many items
 
-###Step1. カスタムリストの作成
-リストの作成ではサイトの SPListCollection の Add メソッドを用いて、リストを追加します。
-Add メソッドの引数は幾つかのパターンがありますが、一番シンプルな方法としては、
+###Step1. Create a custom list
+If you create a custome list, use Add method of SPListCollection.
+Add method accepts many types of arguments.
+This is the most simple way.
 
-Add("<リストの名前>","<リストの説明>","<リストテンプレートのID>") 
+Add("<List Name>","<List Description>","<List Template ID>") 
 
-になります。
 
 Title : SPListCollection.Add method
 https://msdn.microsoft.com/en-us/library/office/microsoft.sharepoint.splistcollection.add.aspx
 
-なお各リストテンプレートの ID は下記のページで確認することができます。
+You can find the list template id from below page.
 
 https://msdn.microsoft.com/en-us/library/office/microsoft.sharepoint.splisttemplatetype.aspx
 
@@ -29,19 +28,19 @@ $listCollection = $web.Lists
 $listCollection.Add("TestList","This is test List","100")
 ```
 
-###Step2. 列の追加
-Step1 で作成したリストに列を追加していきます。
-列の追加は List の SPFieldCollection に AddFieldAsXml メソッドを用います。
+###Step2. Add a culumn
+Add a culumn to the list that you create step1.
+If you Add a column, use AddFieldAsXml method.
 
 Title : SPFieldCollection.AddFieldAsXml method
 https://msdn.microsoft.com/en-us/library/office/microsoft.sharepoint.spfieldcollection.addfieldasxml.aspx
 
-一番シンプルな方法としては、引数に xml を渡します。
+This is the most simple way.
 
-AddFieldAsXml("<XMLの定義>")
+AddFieldAsXml("<XML definition>")
 
-この XMLの定義が列の種類により、指定の仕方が異なります。
-そのため作成したい列に応じて、定義を指定します。
+This XML definitions differ depending on the type of the column is specified.
+Therefore specifies the definition depending on the column you want to create.
 
 Title : Field Element (List)
 https://msdn.microsoft.com/en-us/library/office/ms437580.aspx
@@ -49,11 +48,11 @@ https://msdn.microsoft.com/en-us/library/office/ms437580.aspx
 Title : FieldType enumeration
 https://msdn.microsoft.com/en-us/library/office/microsoft.sharepoint.client.fieldtype.aspx
 
-例えば一行テキストの場合には、下記のような XML を指定します。
+For example, 'Single Text' Culumn
 
-##### 1行テキストの追加
+##### Add a 'Single Text' Culumn
 ```XML
-<Field Type='Text' DisplayName='表示名' Required='FALSE' MaxLength='255' StaticName='固定列名' />
+<Field Type='Text' DisplayName='Display Name' Required='FALSE' MaxLength='255' StaticName='Static Culumn name' />
 ```
 一行テキストは Type が Text になります。
 
