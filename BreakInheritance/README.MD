@@ -3,8 +3,7 @@
 It takes time if you stop inheriting permissions to many items manually. By using PowerShell, you can automate the task.
 
 ```PowerShell
-
-$ Get a web
+# Get a web
 $web = Get-SPWeb http://portal.contoso.local/sites/test
 
 # Get a list
