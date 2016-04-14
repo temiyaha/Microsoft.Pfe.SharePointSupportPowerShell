@@ -1,7 +1,7 @@
 It takes time if you add user to web site. (Only add to UserInfo table)
 By using PowerShell, you can automate the task.
 
-
+```PowerShell
 # Get Web Site
 $web = Get-SPWeb http://portal.contoso.local/sites/test
 
@@ -13,3 +13,4 @@ for($i=1; $i -le 9999; $i++){
 }
 
 $web.dispose()
+```
