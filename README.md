@@ -21,11 +21,6 @@ Stop Inheriting Permissions and set item level permission.
 
 Add users to Active Directory
 
-Set Property to AD users
-
-Change Properties to AD Users 
-
-**AddUsertoUserInfo**
 
 Add users to UserInfo list
 
