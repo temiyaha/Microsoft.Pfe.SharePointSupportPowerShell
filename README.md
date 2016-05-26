@@ -28,3 +28,8 @@ Change Properties to AD Users
 **AddUsertoUserInfo**
 
 Add users to UserInfo list
+
+
+**SPO_CreateFileds**
+
+[For SPO]Create columns to a list and add many items. 
